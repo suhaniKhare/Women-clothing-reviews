@@ -1,84 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-
-<title>Product Recommendation Predictor</title>
-
-<style>
-
-body{
-font-family: Arial;
-background:#f4f4f4;
-}
-
-.container{
-width:500px;
-margin:auto;
-background:white;
-padding:30px;
-margin-top:100px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-input, textarea{
-width:100%;
-padding:10px;
-margin:10px 0;
-}
-
-button{
-background:#28a745;
-color:white;
-padding:10px;
-border:none;
-width:100%;
-font-size:16px;
-}
-
-.result{
-margin-top:20px;
-font-size:20px;
-font-weight:bold;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Product Review Recommendation Predictor</h2>
-
-<form action="/predict" method="post">
-
-<input type="text" name="title" placeholder="Review Title" required>
-
-<textarea name="review" placeholder="Write your review"></textarea>
-
-<input type="number" name="age" placeholder="Age" required>
-
-<input type="number" name="rating" placeholder="Rating (1-5)" required>
-
-<input type="number" name="feedback" placeholder="Positive Feedback Count">
-
-<button type="submit">Predict</button>
-
-</form>
-
-<div class="result">
-
-{{ prediction_text }}
-
-</div>
-
-</div>
-
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,32 +11,32 @@ font-weight:bold;
 
 <div class="wrapper">
 
-  <!-- ── Header ── -->
+  
   <div class="header">
     <p class="eyebrow">ML-Powered · Women's Clothing</p>
     <h1>Will this review get<br><em>recommended?</em></h1>
     <p>Enter the review details below and our model will predict whether the product would be recommended.</p>
   </div>
 
-  <!-- ── Card ── -->
+  
   <div class="card">
     <form action="/predict" method="post">
 
-      <!-- Review Title -->
+      
       <div class="field">
         <label for="title">Review Title</label>
         <input type="text" id="title" name="title"
               placeholder="e.g. Absolutely loved it!" required />
       </div>
 
-      <!-- Review Body -->
+      
       <div class="field">
         <label for="review">Review Body</label>
         <textarea id="review" name="review"
                   placeholder="Share the full review text here…"></textarea>
       </div>
 
-      <!-- Age · Rating · Helpful Votes -->
+     
       <div class="row">
 
         <div class="field">
@@ -128,7 +47,7 @@ font-weight:bold;
 
         <div class="field">
           <label>Rating</label>
-          <!-- RTL star trick: highest value on the left in HTML -->
+          
           <div class="star-row">
             <input type="radio" id="s5" name="rating" value="5" required />
             <label for="s5" title="5">★</label>
@@ -149,7 +68,7 @@ font-weight:bold;
                 placeholder="e.g. 12" min="0" value="0" />
         </div>
 
-      </div><!-- /.row -->
+      </div>
 
       <button type="submit" class="btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -162,7 +81,7 @@ font-weight:bold;
 
     </form>
 
-    <!-- ── Result (only shown after POST) ── -->
+   
     {% if prediction %}
     <div class="divider"></div>
     <div class="result-box {{ prediction }}">
@@ -176,7 +95,7 @@ font-weight:bold;
     </div>
     {% endif %}
 
-  </div><!-- /.card -->
+  </div>
 
   <p class="footer">Powered by a trained ML model · Flask &amp; scikit-learn</p>
 
