@@ -1,0 +1,186 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+
+<title>Product Recommendation Predictor</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+}
+
+.container{
+width:500px;
+margin:auto;
+background:white;
+padding:30px;
+margin-top:100px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+background:#28a745;
+color:white;
+padding:10px;
+border:none;
+width:100%;
+font-size:16px;
+}
+
+.result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Product Review Recommendation Predictor</h2>
+
+<form action="/predict" method="post">
+
+<input type="text" name="title" placeholder="Review Title" required>
+
+<textarea name="review" placeholder="Write your review"></textarea>
+
+<input type="number" name="age" placeholder="Age" required>
+
+<input type="number" name="rating" placeholder="Rating (1-5)" required>
+
+<input type="number" name="feedback" placeholder="Positive Feedback Count">
+
+<button type="submit">Predict</button>
+
+</form>
+
+<div class="result">
+
+{{ prediction_text }}
+
+</div>
+
+</div>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Review Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ── Header ── -->
+  <div class="header">
+    <p class="eyebrow">ML-Powered · Women's Clothing</p>
+    <h1>Will this review get<br><em>recommended?</em></h1>
+    <p>Enter the review details below and our model will predict whether the product would be recommended.</p>
+  </div>
+
+  <!-- ── Card ── -->
+  <div class="card">
+    <form action="/predict" method="post">
+
+      <!-- Review Title -->
+      <div class="field">
+        <label for="title">Review Title</label>
+        <input type="text" id="title" name="title"
+              placeholder="e.g. Absolutely loved it!" required />
+      </div>
+
+      <!-- Review Body -->
+      <div class="field">
+        <label for="review">Review Body</label>
+        <textarea id="review" name="review"
+                  placeholder="Share the full review text here…"></textarea>
+      </div>
+
+      <!-- Age · Rating · Helpful Votes -->
+      <div class="row">
+
+        <div class="field">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age"
+                placeholder="e.g. 34" min="10" max="99" required />
+        </div>
+
+        <div class="field">
+          <label>Rating</label>
+          <!-- RTL star trick: highest value on the left in HTML -->
+          <div class="star-row">
+            <input type="radio" id="s5" name="rating" value="5" required />
+            <label for="s5" title="5">★</label>
+            <input type="radio" id="s4" name="rating" value="4" />
+            <label for="s4" title="4">★</label>
+            <input type="radio" id="s3" name="rating" value="3" />
+            <label for="s3" title="3">★</label>
+            <input type="radio" id="s2" name="rating" value="2" />
+            <label for="s2" title="2">★</label>
+            <input type="radio" id="s1" name="rating" value="1" />
+            <label for="s1" title="1">★</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="feedback">👍 Helpful Votes</label>
+          <input type="number" id="feedback" name="feedback"
+                placeholder="e.g. 12" min="0" value="0" />
+        </div>
+
+      </div><!-- /.row -->
+
+      <button type="submit" class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        Run Prediction
+      </button>
+
+    </form>
+
+    <!-- ── Result (only shown after POST) ── -->
+    {% if prediction %}
+    <div class="divider"></div>
+    <div class="result-box {{ prediction }}">
+      <div class="result-icon">
+        {% if prediction == 'recommended' %}✅{% else %}❌{% endif %}
+      </div>
+      <div>
+        <div class="result-label">Prediction Result</div>
+        <div class="result-value">{{ prediction_text }}</div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div><!-- /.card -->
+
+  <p class="footer">Powered by a trained ML model · Flask &amp; scikit-learn</p>
+
+</div><!-- /.wrapper -->
+
+</body>
+</html>
